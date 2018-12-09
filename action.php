@@ -42,7 +42,7 @@ class action_plugin_nsiconinsearch extends DokuWiki_Action_Plugin
     {
 
 
-        $event->$data['resultHeader'][] = '<p>TEST</p>';
+        $event->data['resultHeader'][] = '<p>TEST</p>';
 
     }
 
