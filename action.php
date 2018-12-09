@@ -23,8 +23,8 @@ class action_plugin_nsiconinsearch extends DokuWiki_Action_Plugin
      */
     public function register(Doku_Event_Handler $controller)
     {
+        $controller->register_hook('SEARCH_RESULT_PAGELOOKUP', 'BEFORE', $this, 'handle_search_result_pagelookup');
         $controller->register_hook('SEARCH_RESULT_FULLPAGE', 'BEFORE', $this, 'handle_search_result_fullpage');
-   
     }
 
     /**
@@ -38,13 +38,16 @@ class action_plugin_nsiconinsearch extends DokuWiki_Action_Plugin
      *
      * @return void
      */
-    public function handle_search_result_fullpage(Doku_Event $event, $param)
+
+    public function handle_search_result_pagelookup(Doku_Event $event, $param)
     {
-
-
-        $event->data['resultHeader'][] = '<p>TEST</p>';
-
+        $icon = "<p>TEST</p>";
+        $event->data['listItemContent'][] = $icon;
     }
 
+    public function handle_search_result_fullpage(Doku_Event $event, $param)
+    {
+        $icon = "<p>TEST</p>";
+        $event->data['resultHeader'][] = $icon;
+    }
 }
-
