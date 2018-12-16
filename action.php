@@ -6,6 +6,9 @@
  * @author  Christoph Ziehr <info@einsatzleiterwiki.de>
  */
 
+// TO DO
+// Höhe selbst festlegen per conf, Hinweis dass kleine Bilder verwendet werden sollten
+
 // must be run within Dokuwiki
 if (!defined('DOKU_INC')) {
     die();
@@ -14,40 +17,54 @@ if (!defined('DOKU_INC')) {
 class action_plugin_nsiconinsearch extends DokuWiki_Action_Plugin
 {
 
-    /**
-     * Registers a callback function for a given event
-     *
-     * @param Doku_Event_Handler $controller DokuWiki's event controller object
-     *
-     * @return void
-     */
     public function register(Doku_Event_Handler $controller)
     {
-        $controller->register_hook('SEARCH_RESULT_PAGELOOKUP', 'BEFORE', $this, 'handle_search_result_pagelookup');
-        $controller->register_hook('SEARCH_RESULT_FULLPAGE', 'BEFORE', $this, 'handle_search_result_fullpage');
+        $controller->register_hook('SEARCH_RESULT_PAGELOOKUP', 'BEFORE', $this, 'pagelookup',array());
+        $controller->register_hook('SEARCH_RESULT_FULLPAGE', 'BEFORE', $this, 'fullpage',array());
     }
 
-    /**
-     * [Custom event handler which performs action]
-     *
-     * Called for event:
-     *
-     * @param Doku_Event $event  event object by reference
-     * @param mixed      $param  [the parameters passed as fifth argument to register_hook() when this
-     *                           handler was registered]
-     *
-     * @return void
-     */
-
-    public function handle_search_result_pagelookup(Doku_Event $event, $param)
+    public function pagelookup(Doku_Event $event, $param)
     {
-        $icon = "<p>TEST</p>";
-        $event->data['listItemContent'][] = $icon;
-    }
+        // Fetch the namespaces in which the icon should be shown from the configuration and save them in an array
+        $in_namespaces_array = explode(" ", $this->getConf('in_namespaces'));
+	// Compare each namespace from the array with the actual first-level-namespace of the page
+        foreach ($in_namespaces_array as $ns_to_compare) {
+		// Save the first-level-namespace in the variable $actual_ns
+        	$actual_ns = strtok ( $event->data['page'] , (':') );
+		// If the actual namespace matches the configured, show the icon
+            	if($actual_ns == $ns_to_compare) {
+			$icon = " <img src=\"lib/plugins/nsiconinsearch/img/". $actual_ns .".png\" alt=\"". $actual_ns ."\" width=\"20px\" height=\"20px\">";
+        		$event->data['listItemContent'][] = $icon;
+//			$this->write_debug($event);
+			}
+		}
+	}
 
-    public function handle_search_result_fullpage(Doku_Event $event, $param)
+    public function fullpage(Doku_Event $event, $param)
     {
-        $icon = "<p>TEST</p>";
-        $event->data['resultHeader'][] = $icon;
+        // Fetch the namespaces in which the icon should be shown from the configuration and save them in an array
+        $in_namespaces_array = explode(" ", $this->getConf('in_namespaces'));
+        // Compare each namespace from the array with the actual first-level-namespace of the page
+        foreach ($in_namespaces_array as $ns_to_compare) {
+                // Save the first-level-namespace in the variable $actual_ns
+                $actual_ns = strtok ( $event->data['page'] , (':') );
+                // If the actual namespace matches the configured, show the icon
+                if($actual_ns == $ns_to_compare) {
+        		$icon = " <img src=\"lib/plugins/nsiconinsearch/img/". $actual_ns .".png\" alt=\"". $actual_ns ."\" width=\"20px\" height=\"20px\">";
+        		$event->data['resultHeader'][] = $icon;
+//        		$this->write_debug($event);
+			}
+		}
+	}
+
+/*
+    function write_debug($data) {
+        $text = print_r($data,1);
+        $handle = fopen(DOKU_INC ."/nsiconinsearch_debug.txt", "a");
+
+     fwrite($handle,"$text\n");
+     fclose($handle);
+
     }
+*/
 }
