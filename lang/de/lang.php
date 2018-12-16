@@ -1,6 +1,6 @@
 <?php
 /**
- * English language file for nsiconinsearch plugin
+ * German language file for nsiconinsearch plugin
  *
  * @author Christoph Ziehr <info@einsatzleiterwiki.de>
  */
