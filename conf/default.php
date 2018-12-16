@@ -5,4 +5,5 @@
  * @author Christoph Ziehr <info@einsatzleiterwiki.de>
  */
 
-//$conf['fixme']    = 'FIXME';
+$conf['in_namespaces'] = 'wiki';
+

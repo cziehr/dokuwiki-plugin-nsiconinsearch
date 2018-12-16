@@ -5,6 +5,5 @@
  * @author Christoph Ziehr <info@einsatzleiterwiki.de>
  */
 
-
-//$meta['fixme'] = array('string');
+$meta['in_namespaces'] = array('string');
 
