@@ -5,5 +5,7 @@
  * @author Christoph Ziehr <info@einsatzleiterwiki.de>
  */
 
-$meta['in_namespaces'] = array('string');
+$meta['iconfile'] = array('string');
+$meta['iconheight'] = array('string');
+$meta['iconwidth'] = array('string');
 

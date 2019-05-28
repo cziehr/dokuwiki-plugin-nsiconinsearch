@@ -5,5 +5,7 @@
  * @author Christoph Ziehr <info@einsatzleiterwiki.de>
  */
 
-$conf['in_namespaces'] = 'wiki';
+$conf['iconfile'] = 'icon.png';
+$conf['iconheight'] = '20px';
+$conf['iconwidth'] = '20px';
 
