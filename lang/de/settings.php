@@ -5,5 +5,7 @@
  * @author Christoph Ziehr <info@einsatzleiterwiki.de>
  */
 
-$lang['in_namespaces'] = 'Namensräume, bei denen das Icon angezeigt werden soll (mehrere Namensräume durch Leerzeichen trennen).';
+$lang['iconfile'] = 'Dateiname der Icon-Dateien';
+$lang['iconheight'] = 'Höhe des Icons auf der Suchergebnis-Seite';
+$lang['iconwidth'] = 'Breite des Icons auf der Suchergebnis-Seite';
 
