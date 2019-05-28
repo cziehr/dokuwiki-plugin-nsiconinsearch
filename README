@@ -2,11 +2,15 @@ nsiconinsearch Plugin for DokuWiki
 
 Show an icon for search results from certain namespaces
 
-Put a png-file named like the namespace for which it should be shown
-in lib/plugins/nsiconsearch/img, for example wiki.png or test.png
-The image is scaled to 20x20 px, so it should be quadratic.
-Please scale large files before you put them into the folder,
-to avoid large data to be transferred.
+Put a png-file named icon.png (or what you define in the configuration
+manager instead) in one of your first-level-namespaces, for example
+icon.png in the namespace wiki. All search results which are in the
+namespace wiki or in a subnamespace will get your icon near the link
+in this case.
+This provides an optical hint in which namespace your searchresult is.
+You can also define the width and height of the icon. Please scale
+large files before you put them into the folder, to avoid heavy data
+traffic.
 
 All documentation for this plugin can be found at
 https://github.com/cziehr/dokuwiki-plugin-nsiconinsearch/
