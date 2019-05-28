@@ -25,46 +25,23 @@ class action_plugin_nsiconinsearch extends DokuWiki_Action_Plugin
 
     public function pagelookup(Doku_Event $event, $param)
     {
-        // Fetch the namespaces in which the icon should be shown from the configuration and save them in an array
-        $in_namespaces_array = explode(" ", $this->getConf('in_namespaces'));
-	// Compare each namespace from the array with the actual first-level-namespace of the page
-        foreach ($in_namespaces_array as $ns_to_compare) {
-		// Save the first-level-namespace in the variable $actual_ns
-        	$actual_ns = strtok ( $event->data['page'] , (':') );
-		// If the actual namespace matches the configured, show the icon
-            	if($actual_ns == $ns_to_compare) {
-			$icon = " <img src=\"lib/plugins/nsiconinsearch/img/". $actual_ns .".png\" alt=\"". $actual_ns ."\" width=\"20px\" height=\"20px\">";
-        		$event->data['listItemContent'][] = $icon;
-//			$this->write_debug($event);
-			}
-		}
-	}
+        // get the first level namespace
+        $actual_ns = strtok ( $event->data['page'] , (':') );
+        // check if an icon exists for the first level namespace, if yes show it for the search result
+        if (file_exists('data/media/'.$actual_ns.'/'.$this->getConf('iconfile'))) {
+            $icon = " <img src=\"lib/exe/fetch.php?media=". $actual_ns .":". $this->getConf('iconfile') ."\" alt=\"". $actual_ns ."\" width=\"". $this->getConf('iconwidth') ."\" height=\"". $this->getConf('iconheight') ."\">";
+            $event->data['listItemContent'][] = $icon;
+        }
+    }
 
     public function fullpage(Doku_Event $event, $param)
     {
-        // Fetch the namespaces in which the icon should be shown from the configuration and save them in an array
-        $in_namespaces_array = explode(" ", $this->getConf('in_namespaces'));
-        // Compare each namespace from the array with the actual first-level-namespace of the page
-        foreach ($in_namespaces_array as $ns_to_compare) {
-                // Save the first-level-namespace in the variable $actual_ns
-                $actual_ns = strtok ( $event->data['page'] , (':') );
-                // If the actual namespace matches the configured, show the icon
-                if($actual_ns == $ns_to_compare) {
-        		$icon = " <img src=\"lib/plugins/nsiconinsearch/img/". $actual_ns .".png\" alt=\"". $actual_ns ."\" width=\"20px\" height=\"20px\">";
+        // get the first level namespace
+        $actual_ns = strtok ( $event->data['page'] , (':') );
+        // check if an icon exists for the first level namespace, if yes show it for the search result
+        if (file_exists('data/media/'.$actual_ns.'/'.$this->getConf('iconfile'))) {
+            $icon = " <img src=\"lib/exe/fetch.php?media=". $actual_ns .":". $this->getConf('iconfile') ."\" alt=\"". $actual_ns ."\" width=\"". $this->getConf('iconwidth') ."\" height=\"". $this->getConf('iconheight') ."\">";
         		$event->data['resultHeader'][] = $icon;
-//        		$this->write_debug($event);
-			}
-		}
-	}
-
-/*
-    function write_debug($data) {
-        $text = print_r($data,1);
-        $handle = fopen(DOKU_INC ."/nsiconinsearch_debug.txt", "a");
-
-     fwrite($handle,"$text\n");
-     fclose($handle);
-
+        }
     }
-*/
 }
